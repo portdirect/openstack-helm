@@ -27,7 +27,12 @@ chown neutron: /run/openvswitch/db.sock
 # which means we need to do a create action
 #
 # see https://github.com/att-comdev/openstack-helm/issues/88
-timeout 3m neutron-sanity-check --config-file /etc/neutron/neutron.conf --config-file /etc/neutron/plugins/ml2/openvswitch_agent.ini --ovsdb_native --nokeepalived_ipv6_support
+# timeout 3m neutron-sanity-check \
+#   --config-file /etc/neutron/neutron.conf \
+#   --config-file /etc/neutron/plugins/ml2/ml2_conf.ini \
+#   --config-file /etc/neutron/plugins/ml2/openvswitch_agent.ini \
+#   --ovsdb_native \
+#   --nokeepalived_ipv6_support
 
 # handle any bridge mappings
 {{- range $bridge, $port := .Values.network.auto_bridge_add }}
