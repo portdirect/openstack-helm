@@ -69,7 +69,9 @@ EOF
 helm install ./neutron \
     --namespace=openstack \
     --name=neutron \
-    --values=/tmp/neutron.yaml
+    --values=/tmp/neutron.yaml \
+    ${OSH_EXTRA_HELM_ARGS} \
+    ${OSH_EXTRA_HELM_ARGS_NEUTRON}
 
 tee /tmp/ironic.yaml << EOF
 labels:
@@ -81,6 +83,8 @@ network:
     neutron_provider_network: "${OSH_IRONIC_PXE_PYSNET}"
 conf:
   ironic:
+    DEFAULT:
+      debug: true
     conductor:
       automated_clean: "false"
     deploy:
@@ -89,7 +93,9 @@ EOF
 helm install ./ironic \
     --namespace=openstack \
     --name=ironic \
-    --values=/tmp/ironic.yaml
+    --values=/tmp/ironic.yaml \
+    ${OSH_EXTRA_HELM_ARGS} \
+    ${OSH_EXTRA_HELM_ARGS_IRONIC}
 
 tee /tmp/nova.yaml << EOF
 labels:
@@ -100,27 +106,34 @@ labels:
 conf:
   nova:
     DEFAULT:
-      force_config_drive: false
+      debug: true
+      #force_config_drive: false
       scheduler_host_manager: ironic_host_manager
       compute_driver: ironic.IronicDriver
-      ram_allocation_ratio: 1.0
+      firewall_driver: nova.virt.firewall.NoopFirewallDriver
+      #ram_allocation_ratio: 1.0
       reserved_host_memory_mb: 0
       scheduler_use_baremetal_filters: true
       baremetal_scheduler_default_filters: "RetryFilter,AvailabilityZoneFilter,ComputeFilter,ComputeCapabilitiesFilter"
+    filter_scheduler:
       scheduler_tracks_instance_changes: false
-      scheduler_host_subset_size: 9999
+      #scheduler_host_subset_size: 9999
+    scheduler:
+      discover_hosts_in_cells_interval: 120
 manifests:
-  cron_job_cell_setup: false
+  cron_job_cell_setup: true
   daemonset_compute: false
   daemonset_libvirt: false
   statefulset_compute_ironic: true
-  job_cell_setup: false
+  job_cell_setup: true
 EOF
 # Deploy Nova and enable the neutron agents
 helm install ./nova \
     --namespace=openstack \
     --name=nova \
-    --values=/tmp/nova.yaml
+    --values=/tmp/nova.yaml \
+    ${OSH_EXTRA_HELM_ARGS} \
+    ${OSH_EXTRA_HELM_ARGS_NOVA}
 
 #NOTE: Wait for deploy
 ./tools/deployment/common/wait-for-pods.sh openstack

@@ -1,0 +1,103 @@
+conf:
+  neutron:
+    agent:
+      root_helper: sudo /var/lib/kolla/venv/bin/neutron-rootwrap /etc/neutron/rootwrap.conf
+images:
+  tags:
+    barbican_api: 'docker.io/kolla/ubuntu-source-barbican-api:queens'
+    barbican_db_sync: 'docker.io/kolla/ubuntu-source-barbican-api:queens'
+    bootstrap: 'docker.io/kolla/ubuntu-source-heat-engine:queens'
+    cinder_api: 'docker.io/kolla/ubuntu-source-cinder-api:queens'
+    cinder_backup: 'docker.io/kolla/ubuntu-source-cinder-backup:queens'
+    cinder_db_sync: 'docker.io/kolla/ubuntu-source-cinder-api:queens'
+    cinder_scheduler: 'docker.io/kolla/ubuntu-source-cinder-scheduler:queens'
+    cinder_volume: 'docker.io/kolla/ubuntu-source-cinder-volume:queens'
+    cinder_volume_usage_audit: 'docker.io/kolla/ubuntu-source-cinder-volume:queens'
+    congress_api: 'docker.io/kolla/ubuntu-source-congress-api:queens'
+    congress_datasource: 'docker.io/kolla/ubuntu-source-congress-datasource:queens'
+    congress_db_sync: 'docker.io/kolla/ubuntu-source-congress-api:queens'
+    congress_ds_create: 'docker.io/kolla/ubuntu-source-congress-api:queens'
+    congress_policy_engine: 'docker.io/kolla/ubuntu-source-congress-policy-engine:queens'
+    congress_scripted_test: 'docker.io/kolla/ubuntu-source-congress-api:queens'
+    db_drop: 'docker.io/kolla/ubuntu-source-heat-engine:queens'
+    db_init: 'docker.io/kolla/ubuntu-source-heat-engine:queens'
+    glance_api: 'docker.io/kolla/ubuntu-source-glance-api:queens'
+    glance_bootstrap: 'docker.io/kolla/ubuntu-source-heat-engine:queens'
+    glance_db_sync: 'docker.io/kolla/ubuntu-source-glance-api:queens'
+    glance_registry: 'docker.io/kolla/ubuntu-source-glance-registry:queens'
+    heat_api: 'docker.io/kolla/ubuntu-source-heat-api:queens'
+    heat_cfn: 'docker.io/kolla/ubuntu-source-heat-api:queens'
+    heat_cloudwatch: 'docker.io/kolla/ubuntu-source-heat-api:queens'
+    heat_db_sync: 'docker.io/kolla/ubuntu-source-heat-api:queens'
+    heat_engine: 'docker.io/kolla/ubuntu-source-heat-engine:queens'
+    heat_engine_cleaner: 'docker.io/kolla/ubuntu-source-heat-engine:queens'
+    horizon: 'docker.io/kolla/ubuntu-source-horizon:queens'
+    horizon_db_sync: 'docker.io/kolla/ubuntu-source-horizon:queens'
+    ironic_api: 'docker.io/kolla/ubuntu-source-ironic-api:queens'
+    ironic_bootstrap: 'docker.io/kolla/ubuntu-source-heat-engine:queens'
+    ironic_conductor: 'docker.io/kolla/ubuntu-source-ironic-conductor:queens'
+    ironic_db_sync: 'docker.io/kolla/ubuntu-source-ironic-api:queens'
+    ironic_pxe: 'docker.io/kolla/ubuntu-source-ironic-pxe:queens'
+    ironic_pxe_init: 'docker.io/kolla/ubuntu-source-ironic-pxe:queens'
+    keystone_api: 'docker.io/kolla/ubuntu-source-keystone:queens'
+    keystone_bootstrap: 'docker.io/kolla/ubuntu-source-keystone:queens'
+    keystone_credential_rotate: 'docker.io/kolla/ubuntu-source-keystone:queens'
+    keystone_credential_setup: 'docker.io/kolla/ubuntu-source-keystone:queens'
+    keystone_db_sync: 'docker.io/kolla/ubuntu-source-keystone:queens'
+    keystone_domain_manage: 'docker.io/kolla/ubuntu-source-keystone:queens'
+    keystone_fernet_rotate: 'docker.io/kolla/ubuntu-source-keystone:queens'
+    keystone_fernet_setup: 'docker.io/kolla/ubuntu-source-keystone:queens'
+    ks_endpoints: 'docker.io/kolla/ubuntu-source-heat-engine:queens'
+    ks_service: 'docker.io/kolla/ubuntu-source-heat-engine:queens'
+    ks_user: 'docker.io/kolla/ubuntu-source-heat-engine:queens'
+    magnum_api: 'docker.io/kolla/ubuntu-source-magnum-api:queens'
+    magnum_conductor: 'docker.io/kolla/ubuntu-source-magnum-conductor:queens'
+    magnum_db_sync: 'docker.io/kolla/ubuntu-source-magnum-api:queens'
+    neutron_db_sync: 'docker.io/kolla/ubuntu-source-neutron-server:queens'
+    neutron_dhcp: 'docker.io/kolla/ubuntu-source-neutron-dhcp-agent:queens'
+    neutron_l3: 'docker.io/kolla/ubuntu-source-neutron-l3-agent:queens'
+    neutron_linuxbridge_agent: 'docker.io/kolla/ubuntu-source-neutron-linuxbridge-agent:queens'
+    neutron_metadata: 'docker.io/kolla/ubuntu-source-neutron-metadata-agent:queens'
+    neutron_openvswitch_agent: 'docker.io/kolla/ubuntu-source-neutron-openvswitch-agent:queens'
+    neutron_server: 'docker.io/kolla/ubuntu-source-neutron-server:queens'
+    nova_api: 'docker.io/kolla/ubuntu-source-nova-api:queens'
+    nova_cell_setup: 'docker.io/kolla/ubuntu-source-nova-api:queens'
+    nova_compute: 'docker.io/kolla/ubuntu-source-nova-compute:queens'
+    nova_compute_ironic: 'docker.io/kolla/ubuntu-source-nova-compute-ironic:queens'
+    nova_compute_ssh: 'docker.io/kolla/ubuntu-source-nova-ssh:queens'
+    nova_conductor: 'docker.io/kolla/ubuntu-source-nova-conductor:queens'
+    nova_consoleauth: 'docker.io/kolla/ubuntu-source-nova-consoleauth:queens'
+    nova_db_sync: 'docker.io/kolla/ubuntu-source-nova-api:queens'
+    nova_novncproxy: 'docker.io/kolla/ubuntu-source-nova-novncproxy:queens'
+    nova_novncproxy_assets: 'docker.io/kolla/ubuntu-source-nova-novncproxy:queens'
+    nova_placement: 'docker.io/kolla/ubuntu-source-nova-placement-api:queens'
+    nova_scheduler: 'docker.io/kolla/ubuntu-source-nova-scheduler:queens'
+    nova_spiceproxy: 'docker.io/kolla/ubuntu-source-nova-spicehtml5proxy:queens'
+    nova_spiceproxy_assets: 'docker.io/kolla/ubuntu-source-nova-spicehtml5proxy:queens'
+    scripted_test: 'docker.io/kolla/ubuntu-source-heat-engine:queens'
+    senlin_api: 'docker.io/kolla/ubuntu-source-senlin-api:queens'
+    senlin_db_sync: 'docker.io/kolla/ubuntu-source-senlin-api:queens'
+    senlin_engine: 'docker.io/kolla/ubuntu-source-senlin-engine:queens'
+    tempest: 'docker.io/kolla/ubuntu-source-tempest:queens'
+    test: 'docker.io/kolla/ubuntu-source-rally:queens'
+pod:
+  #NOTE(portdirect): see https://github.com/openstack/kolla/blob/f62f5ae2fa5e7808722f9b37b48a50b39c20b46d/kolla/common/config.py#L695-L998
+  user:
+    barbican:
+      uid: 42403
+    cinder:
+      uid: 42407
+    congress:
+      uid: 42410
+    glance:
+      uid: 42415
+    heat:
+      uid: 42418
+    magnum:
+      uid: 42428
+    neutron:
+      uid: 42435
+    nova:
+      uid: 42436
+    senlin:
+      uid: 42443

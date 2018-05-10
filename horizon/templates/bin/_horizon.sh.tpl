@@ -35,6 +35,7 @@ function start () {
   APACHE_DIR="apache2"
 
   # Compress Horizon's assets.
+  cd ${SITE_PACKAGES_ROOT}/openstack_dashboard; /tmp/manage.py compilemessages
   /tmp/manage.py collectstatic --noinput
   /tmp/manage.py compress --force
   rm -rf /tmp/_tmp_.secret_key_store.lock /tmp/.secret_key_store
