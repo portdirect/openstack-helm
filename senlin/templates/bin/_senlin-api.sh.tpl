@@ -20,7 +20,8 @@ set -ex
 COMMAND="${@:-start}"
 
 function start () {
-  exec senlin-api \
+  source /var/lib/openstack/bin/activate
+  senlin-api --debug \
         --config-file /etc/senlin/senlin.conf
 }
 

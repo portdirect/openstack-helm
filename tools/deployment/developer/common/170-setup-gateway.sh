@@ -39,9 +39,9 @@ sudo docker run -d \
   --entrypoint dnsmasq \
   docker.io/openstackhelm/neutron:newton \
     --keep-in-foreground \
-    --no-hosts \
     --resolv-file=/etc/kubernetes/kubelet-resolv.conf \
     --address="/svc.cluster.local/${OSH_BR_EX_ADDR%/*}" \
-    --listen-address="${OSH_BR_EX_ADDR%/*}"
+    --listen-address="${OSH_BR_EX_ADDR%/*}" \
+    --server=8.8.8.8
 sleep 1
 sudo docker top br-ex-dns-server

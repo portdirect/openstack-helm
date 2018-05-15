@@ -17,5 +17,6 @@ limitations under the License.
 */}}
 
 set -ex
-exec senlin-engine \
+source /var/lib/openstack/bin/activate
+senlin-engine --debug \
       --config-file /etc/senlin/senlin.conf

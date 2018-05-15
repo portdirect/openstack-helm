@@ -161,10 +161,34 @@ sudo docker exec docker-in-docker docker build --force-rm --pull --no-cache \
     --build-arg FROM=gcr.io/google_containers/ubuntu-slim:0.14 \
     --build-arg PROJECT_REF=${OPENSTACK_VERSION} \
     --build-arg PROFILES="senlin" \
-    --build-arg PIP_PACKAGES="pycrypto" \
+    --build-arg PIP_PACKAGES="pycrypto git+https://github.com/openstack/senlin.git@${OPENSTACK_VERSION}#subdirectory=contrib/kubernetes" \
     --build-arg WHEELS=openstackhelm/requirements:${IMAGE_TAG} \
     --tag docker.io/openstackhelm/senlin:${IMAGE_TAG}
 sudo docker exec docker-in-docker docker push docker.io/openstackhelm/senlin:${IMAGE_TAG}
+
+tee > /tmp/Dockerfile.senlin-kubernetes <<EOF
+FROM docker.io/openstackhelm/senlin:${IMAGE_TAG}
+RUN set -ex ;\
+    apt-get update ;\
+    apt-get upgrade -y ;\
+    apt-get install -y --no-install-recommends \
+        git \
+        python \
+        virtualenv ;\
+    . /var/lib/openstack/bin/activate ;\
+    git clone https://github.com/openstack/senlin.git /opt/senlin ;\
+    cd /opt/senlin/contrib/kubernetes/ ;\
+    pip install --editable .
+EOF
+
+SENLIN_KUBE_DOCKERFILE=$(base64 -w0 /tmp/Dockerfile.senlin-kubernetes)
+sudo docker exec docker-in-docker sh -c "echo $SENLIN_KUBE_DOCKERFILE | base64 -d > /tmp/Dockerfile.senlin-kubernetes"
+sudo docker exec docker-in-docker docker build --file /tmp/Dockerfile.senlin-kubernetes /tmp --tag docker.io/openstackhelm/senlin:${IMAGE_TAG}-kubernetes
+sudo docker exec docker-in-docker docker push docker.io/openstackhelm/senlin:${IMAGE_TAG}-kubernetes
+
+
+
+
 
 sudo docker exec docker-in-docker docker build --force-rm --pull --no-cache \
     https://git.openstack.org/openstack/loci.git \
